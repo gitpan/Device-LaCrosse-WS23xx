@@ -2,6 +2,13 @@ use strict;
 use warnings;
 use ExtUtils::MakeMaker;
 
+# I like the three-argument open, and there might be other 5.6isms.
+use 5.006;
+
+# The .xs would need to be rewritten to work on Windows
+die "OS unsupported"	if $^O =~ /mswin/i;
+
+
 my $pm = 'lib/Device/LaCrosse/WS23xx.pm';
 
 (my $mmap = $pm) =~ s!\.pm$!/MemoryMap\.pm!;
@@ -13,7 +20,11 @@ my $mm = WriteMakefile(
     ABSTRACT_FROM => $pm,
     PL_FILES      => { 'memory_map_2300.PL' => $mmap },
     PREREQ_PM     => { 'Test::More' => 0 },
-    dist          => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
+    dist          => {
+	COMPRESS => 'gzip -9f',
+	SUFFIX   => 'gz',
+	PREOP    => 'fgrep  \?\? Changes && exit 1 || true',
+    },
     clean         => { FILES => 'Device-LaCrosse-WS23xx-*' },
 );
 

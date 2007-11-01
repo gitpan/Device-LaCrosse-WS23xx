@@ -6,6 +6,8 @@
 #
 package Device::LaCrosse::WS23xx;
 
+use 5.006;
+
 use strict;
 use warnings;
 use Carp;
@@ -60,7 +62,7 @@ use vars qw(@ISA %EXPORT_TAGS @EXPORT_OK @EXPORT);
 @EXPORT_OK   = ( );
 @EXPORT      = ( );
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 our $PKG = __PACKAGE__;		# For interpolating into error messages
 
@@ -138,6 +140,19 @@ sub new {
 	or return undef;
 
     return bless $self, $class;
+}
+
+
+############
+#  DELETE  #  Destructor.  Call C code to close the filehandle.
+############
+sub DELETE {
+    my $self = shift;
+
+    if (defined $self->{fh}) {
+	_ws_close($self->{fh})
+	    or warn "$ME: Error closing $self->{path}: $!";
+    }
 }
 
 
