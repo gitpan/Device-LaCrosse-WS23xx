@@ -1,11 +1,14 @@
-# http://module-build.sourceforge.net/META-spec.html
-#XXXXXXX This is a prototype!!!  It will change in the future!!! XXXXX#
-name:         Device-LaCrosse-WS23xx
-version:      0.06
-version_from: lib/Device/LaCrosse/WS23xx.pm
-installdirs:  site
-requires:
+--- #YAML:1.0
+name:                Device-LaCrosse-WS23xx
+version:             0.07
+abstract:            read data from La Crosse weather station
+license:             ~
+author:              
+    - Eduardo Santiago <esm@cpan.org>
+generated_by:        ExtUtils::MakeMaker version 6.42
+distribution_type:   module
+requires:     
     Test::More:                    0
-
-distribution_type: module
-generated_by: ExtUtils::MakeMaker version 6.30
+meta-spec:
+    url:     http://module-build.sourceforge.net/META-spec-v1.3.html
+    version: 1.3
